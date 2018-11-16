@@ -1,0 +1,22 @@
+version: '2'
+services:
+    web:
+        build: .
+        links:
+            - db
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/code
+
+    db:
+        image: mysql:5.7
+        ports:
+            - "32000:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD="12345678"
+            - MYSQL_USER="root"
+            - MYSQL_PASSWORD="12345678"
+            - MYSQL_DATABASE="github"
+        volumes:
+            - ./db:/docker-entrypoint-initdb.d/:ro
